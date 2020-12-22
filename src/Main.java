@@ -2,59 +2,21 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // 1. 생성자 활용 플레이어 설정
+        // 2. 상속, 인터페이스로 구조 잡기
+        // 3. 전투 시스템 구현
+        // 오버라이딩, 오버로딩, static, final, getter, setter, 접근제어자, 예외
+        // 게임 저장하기, 불러오기 구현
+
         Scanner sc = new Scanner(System.in);
-        Player player = new Player("권재영", "한손검", 50, 100, 1);
-        Enemy enemy = new Enemy("이시헌", 10, 100, 1);
 
+        // 캐릭터 설정
+        System.out.println("어서오세요. 플레이어의 이름을 정해주세요.");
+        String str = sc.nextLine();
 
-        System.out.println("0) exit, 1) battle, 10) 도움말");
-        while (true) {
-            String input = sc.nextLine();
-            if (input.equals("0")) {
-                System.out.println("프로그램을 종료합니다.");
-                break;
-            } else if (input.equals("1")) {
-                int returnValue = getBattleWinner(player, enemy);
-                switch (returnValue) {
-                    case 0:
-                        System.out.println("무승부입니다. 후훗");
-                        break;
-                    case 1:
-                        System.out.println("축하합니다. 이겼습니다.");
-                        enemy = new Enemy("이시헌", 10, 100, 1);
-                        break;
-                    case 2:
-                        System.out.println("눈앞이 캄캄해졌습니다.");
-                        return;
-                    case -1:
-                        System.out.println("에러");
-                        break;
-                }
+        Player player = new Player(str);
 
-            } else if (input.equals("10")) {
-                System.out.println("0) exit, 1) battle, 10) 도움말");
-            }
-
-        }
-    }
-
-    public static int getBattleWinner(Player player, Enemy enemy) {
-        enemy.hp -= player.atk;
-        player.hp -= enemy.atk;
-
-        if (enemy.hp > 0 && player.hp > 0) {
-            System.out.println(player.name +"님의 hp: " + player.hp);
-            System.out.println(enemy.name + "님의 hp: " + enemy.hp);
-            return 0;
-        } else if (enemy.hp <= 0) {
-            System.out.println(player.name + "님이 " + enemy.name + "을 쓰러트렸습니다.");
-            return 1;
-        } else if (player.hp <= 0) {
-            System.out.println(enemy.name + "님이 " + player.name + "을 쓰러트렸습니다.");
-            return 2;
-        } else {
-            return -1;
-        }
+        GameManager.startGame(player);
 
     }
 }
